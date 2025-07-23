@@ -1,0 +1,10 @@
+# Placeholder for CV PDF
+
+This file should be replaced with the actual CV PDF file.
+
+The CV download button in the Hero component references `/cv.pdf` which should be placed in the public folder.
+
+To use:
+1. Place your CV PDF file in this public folder
+2. Rename it to `cv.pdf`
+3. The download button will automatically work

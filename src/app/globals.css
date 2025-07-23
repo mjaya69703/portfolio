@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-earth transition-colors duration-500;
+    color: #1f2937;
+  }
+  
+  .dark body {
+    @apply font-space;
+    color: #f9fafb;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/20 border border-white/30;
+  }
+  
+  .dark .glass-effect {
+    @apply bg-space-void/20 border-space-galaxy/30;
+  }
+  
+  .card-hover {
+    @apply transform transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-earth-forest to-earth-grass bg-clip-text text-transparent;
+  }
+  
+  .dark .text-gradient {
+    @apply from-space-galaxy to-space-cosmic;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-earth-forest to-earth-grass text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 relative overflow-hidden;
+    color: white !important;
+  }
+  
+  .dark .btn-primary {
+    @apply from-space-galaxy to-space-nebula;
+    color: white !important;
+  }
+  
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full transition-transform duration-700;
+  }
+  
+  .btn-primary:hover::before {
+    @apply translate-x-full;
+  }
+  
+  .section-enter {
+    @apply opacity-0 transform translate-y-10;
+  }
+  
+  .section-enter-active {
+    @apply opacity-100 transform translate-y-0 transition-all duration-700 ease-out;
+  }
+  
+  .floating-element {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .floating-element:nth-child(even) {
+    animation-delay: -3s;
+  }
+  
+  /* FIXED: Gradient text dengan warna yang benar */
+  .gradient-text {
+    background: linear-gradient(45deg, 
+      #228B22, 
+      #32CD32, 
+      #87CEEB
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 8s ease-in-out infinite;
+  }
+  
+  .dark .gradient-text {
+    background: linear-gradient(45deg, 
+      #6366F1, 
+      #8B5CF6, 
+      #FF69B4
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 8s ease-in-out infinite;
+  }
+}
+
+/* ADDED: Missing keyframes */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-earth-sky/20;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-space-void/50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-earth-forest/50 rounded-full;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-space-galaxy/70;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-earth-forest/70;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-space-galaxy;
+}
