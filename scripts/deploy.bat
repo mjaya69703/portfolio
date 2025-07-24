@@ -1,15 +1,12 @@
 @echo off
 :: Portfolio Deployment Script for Windows
-:: Usage: scripts\deploy.bat [environment]
+:: Simple production deployment with PM2
 
 setlocal
 
-set ENVIRONMENT=%1
-if "%ENVIRONMENT%"=="" set ENVIRONMENT=production
-
 set PROJECT_NAME=portfolio
 
-echo 🚀 Starting deployment for %PROJECT_NAME% in %ENVIRONMENT% mode...
+echo 🚀 Starting deployment for %PROJECT_NAME%...
 
 :: Check if PM2 is installed
 pm2 --version >nul 2>&1
@@ -41,11 +38,7 @@ pm2 delete %PROJECT_NAME% 2>nul || echo No existing process to delete
 
 :: Start the application with PM2
 echo ▶️ Starting application with PM2...
-if "%ENVIRONMENT%"=="production" (
-    pm2 start ecosystem.config.js --env production
-) else (
-    pm2 start ecosystem.config.js
-)
+pm2 start ecosystem.config.js
 
 :: Save PM2 configuration
 echo 💾 Saving PM2 configuration...
@@ -57,7 +50,6 @@ pm2 status
 
 echo ✅ Deployment completed successfully!
 echo 🌐 Application is running on http://localhost:3000
-echo 📊 Monitor with: pm2 monit
 echo 📋 View logs with: pm2 logs %PROJECT_NAME%
 
 pause

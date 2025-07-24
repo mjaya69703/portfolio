@@ -2,16 +2,12 @@ module.exports = {
   apps: [
     {
       name: 'portfolio',
-      script: 'npm',
+      script: 'node_modules/next/dist/bin/next',
       args: 'start',
-      cwd: '/c/wumpus/www/portfolio',
-      instances: 'max',
-      exec_mode: 'cluster',
+      cwd: './',
+      instances: 1,
+      exec_mode: 'fork',
       env: {
-        NODE_ENV: 'development',
-        PORT: 3000
-      },
-      env_production: {
         NODE_ENV: 'production',
         PORT: 3000
       },
@@ -40,18 +36,5 @@ module.exports = {
       merge_logs: true,
       time: true
     }
-  ],
-
-  deploy: {
-    production: {
-      user: 'root',
-      host: 'your-server-ip',
-      ref: 'origin/main',
-      repo: 'https://github.com/mjaya69703/portfolio.git',
-      path: '/var/www/portfolio',
-      'pre-deploy-local': '',
-      'post-deploy': 'npm install && npm run build && pm2 reload ecosystem.config.js --env production',
-      'pre-setup': ''
-    }
-  }
+  ]
 }
