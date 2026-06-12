@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const projects = [
   {
     name: 'NexaCampus',
-    description: 'Sistem Informasi Akademik Perguruan Tinggi (SIAKAD PT) berbasis Laravel 12 & Livewire 4. Mengelola akademik, pembelajaran, admission, keuangan, layanan mahasiswa, kepegawaian, dan pengawasan akademik dalam satu platform.',
+    description: 'Comprehensive academic information system (SIAKAD PT) built with Laravel 12 & Livewire 4. Manages academics, learning, admissions, finance, student services, HR, and academic oversight in one platform.',
     technologies: ['Laravel', 'Livewire', 'Tailwind CSS', 'MySQL'],
     status: 'Active',
     github: 'https://github.com/mjaya69703/nexacampus',
@@ -12,7 +12,7 @@ const projects = [
   },
   {
     name: 'Neco Siakad',
-    description: 'Sistem Akademik Perguruan Tinggi berbasis open source. Platform SIAKAD yang digunakan di lingkungan produksi dengan 45+ stars dan 15+ forks di GitHub.',
+    description: 'Open-source academic system for higher education. Production-ready SIAKAD platform with 45+ stars and 15+ forks on GitHub.',
     technologies: ['Laravel', 'Blade', 'HTML', 'CSS'],
     status: 'Active',
     github: 'https://github.com/mjaya69703/siakad-pt.internal-dev.id',
@@ -20,7 +20,7 @@ const projects = [
   },
   {
     name: 'Arpotret',
-    description: 'Web aplikasi pemesanan jasa fotografi open source. Sistem untuk manajemen booking, portofolio, dan interaksi klien fotografer.',
+    description: 'Open-source photography booking web application. System for managing bookings, portfolios, and photographer-client interactions.',
     technologies: ['Laravel', 'Blade', 'JavaScript'],
     status: 'Completed',
     github: 'https://github.com/mjaya69703/www.arpotret.biz.id',
@@ -28,11 +28,21 @@ const projects = [
   },
   {
     name: 'Laraflare',
-    description: 'Laravel Domain Manager with Cloudflare API. Tool untuk mengelola domain dan DNS records melalui integrasi Cloudflare.',
+    description: 'Laravel Domain Manager with Cloudflare API. A tool for managing domains and DNS records through Cloudflare integration.',
     technologies: ['Laravel', 'Blade', 'Cloudflare API'],
     status: 'Completed',
     github: 'https://github.com/mjaya69703/laraflare',
     demo: null,
+  },
+  {
+    name: 'Homelab Infrastructure',
+    description: 'Self-hosted infrastructure on a Mini PC running Proxmox VE with LXC containers. Hosts 5+ web apps, monitoring stack (Grafana + Prometheus), Docker services, and centralized database — all exposed via Cloudflare Tunnel with zero open ports.',
+    technologies: ['Proxmox', 'Docker', 'Nginx', 'Cloudflare Tunnel', 'Grafana', 'MariaDB'],
+    status: 'Active',
+    github: null,
+    demo: null,
+    link: '/homelab/',
+    linkLabel: 'View Setup',
   },
 ];
 
@@ -85,6 +95,15 @@ const statusColor: Record<string, string> = {
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
                   Demo
+                </a>
+              )}
+              {project.link && (
+                <a
+                  href={project.link}
+                  class="flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-text"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+                  {project.linkLabel ?? 'Details'}
                 </a>
               )}
             </div>

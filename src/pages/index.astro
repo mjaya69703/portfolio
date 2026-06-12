@@ -1,32 +1,82 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { profile, tagline } from '../data/profile';
+
+const techStack = ['Laravel', 'Docker', 'Linux', 'Nginx', 'Grafana', 'Cloudflare', 'AWS', 'Proxmox'];
+const stats = [
+  { value: '3+', label: 'Years Experience' },
+  { value: '5+', label: 'Open Source Projects' },
+  { value: '45+', label: 'GitHub Stars' },
+];
 ---
 
 <BaseLayout title="AscendKyo.dev">
   <!-- Hero Section -->
   <section class="px-6 py-24 md:py-32">
     <div class="mx-auto max-w-5xl">
-      <p class="mono text-sm text-primary">Hello, I'm</p>
-      <h1 class="mt-3 text-4xl font-bold tracking-tight md:text-5xl">
-        {profile.name}
-      </h1>
-      <p class="mt-1 mono text-lg text-muted">{profile.alias}</p>
-      <p class="mt-4 max-w-2xl text-muted leading-relaxed">
-        {profile.role} &middot; Infrastructure Enthusiast &middot; Technical Support Background
-      </p>
-      <p class="mt-3 max-w-2xl text-muted leading-relaxed">
-        {tagline} Continuously learning cloud, automation, and reliable operations.
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a href="/projects/" class="btn-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-          View Projects
-        </a>
-        <a href="/resume/" class="btn-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          View Resume
-        </a>
+      <div class="grid gap-12 lg:grid-cols-5 lg:gap-8">
+        <!-- Left: Info -->
+        <div class="lg:col-span-3">
+          <p class="mono text-sm text-primary">Hello, I'm</p>
+          <h1 class="mt-3 text-4xl font-bold tracking-tight md:text-5xl">
+            {profile.name}
+          </h1>
+          <p class="mt-1 mono text-lg text-muted">{profile.alias}</p>
+          <p class="mt-4 text-muted leading-relaxed">
+            {profile.role} &middot; Infrastructure Enthusiast &middot; Technical Support Background
+          </p>
+          <p class="mt-3 text-muted leading-relaxed">
+            {tagline} Continuously learning cloud, automation, and reliable operations.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="/projects/" class="btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              View Projects
+            </a>
+            <a href="/resume/" class="btn-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              View Resume
+            </a>
+          </div>
+          <!-- Stats -->
+          <div class="mt-10 flex gap-8">
+            {stats.map((s) => (
+              <div>
+                <p class="text-2xl font-bold text-primary mono">{s.value}</p>
+                <p class="text-xs text-muted mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <!-- Right: Terminal -->
+        <div class="lg:col-span-2 flex items-start">
+          <div class="card w-full !p-0 overflow-hidden">
+            <div class="flex items-center gap-2 px-4 py-3 border-b border-border bg-bg/50">
+              <div class="h-2.5 w-2.5 rounded-full bg-danger/60"></div>
+              <div class="h-2.5 w-2.5 rounded-full bg-warning/60"></div>
+              <div class="h-2.5 w-2.5 rounded-full bg-success/60"></div>
+              <span class="ml-2 mono text-xs text-muted">~/ascendkyo</span>
+            </div>
+            <div class="p-4 mono text-sm leading-relaxed">
+              <p><span class="text-success">$</span> whoami</p>
+              <p class="text-muted">mjaya69703</p>
+              <p class="mt-2"><span class="text-success">$</span> cat role.txt</p>
+              <p class="text-muted">IT Operation Center</p>
+              <p class="mt-2"><span class="text-success">$</span> ls homelab/</p>
+              <p class="text-muted">proxmox docker nginx<br/>grafana cloudflare-tunnel</p>
+              <p class="mt-2"><span class="text-success">$</span> echo $FOCUS</p>
+              <p class="text-primary">DevOps &amp; Cloud Infra</p>
+              <p class="mt-2"><span class="text-success">$</span> <span class="inline-block w-2 h-4 bg-text/70 animate-pulse"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tech Stack -->
+      <div class="mt-12 flex flex-wrap items-center gap-3">
+        <span class="text-xs text-muted uppercase tracking-wider">Tech Stack:</span>
+        {techStack.map((tech) => (
+          <span class="badge mono text-xs">{tech}</span>
+        ))}
       </div>
     </div>
   </section>
