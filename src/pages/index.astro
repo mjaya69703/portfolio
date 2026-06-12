@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profile, tagline } from '../data/profile';
+---
+
+<BaseLayout title="AscendKyo.dev">
+  <!-- Hero Section -->
+  <section class="px-6 py-24 md:py-32">
+    <div class="mx-auto max-w-5xl">
+      <p class="mono text-sm text-primary">Hello, I'm</p>
+      <h1 class="mt-3 text-4xl font-bold tracking-tight md:text-5xl">
+        {profile.name}
+      </h1>
+      <p class="mt-1 mono text-lg text-muted">{profile.alias}</p>
+      <p class="mt-4 max-w-2xl text-muted leading-relaxed">
+        {profile.role} &middot; Infrastructure Enthusiast &middot; Technical Support Background
+      </p>
+      <p class="mt-3 max-w-2xl text-muted leading-relaxed">
+        {tagline} Continuously learning cloud, automation, and reliable operations.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/projects/" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          View Projects
+        </a>
+        <a href="/resume/" class="btn-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          View Resume
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Current Focus Section -->
+  <section class="px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="section-title">Current Focus</h2>
+      <p class="mt-2 text-sm text-muted">What I'm working on right now</p>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="card">
+          <div class="flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium">Infrastructure Monitoring</p>
+              <p class="text-xs text-muted">Kibana, Grafana, Prometheus</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium">Cloud Operations</p>
+              <p class="text-xs text-muted">Huawei Cloud, AWS</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium">DevOps Learning</p>
+              <p class="text-xs text-muted">CI/CD, GitOps, Containers</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium">Automation</p>
+              <p class="text-xs text-muted">Scripts, IaC, Workflows</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect><rect width="20" height="8" x="2" y="14" rx="2" ry="2"></rect><line x1="6" x2="6.01" y1="6" y2="6"></line><line x1="6" x2="6.01" y1="18" y2="18"></line></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium">Homelab Development</p>
+              <p class="text-xs text-muted">Self-hosting, Docker, Nginx</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey Section -->
+  <section class="px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="section-title">Journey</h2>
+      <p class="mt-2 text-sm text-muted">Career path and experience</p>
+
+      <div class="mt-8 space-y-0">
+        <!-- Timeline Item 1 -->
+        <div class="relative flex gap-6 pb-10">
+          <div class="flex flex-col items-center">
+            <div class="flex h-3 w-3 rounded-full bg-primary"></div>
+            <div class="w-px flex-1 bg-border"></div>
+          </div>
+          <div class="-mt-1 pb-2">
+            <p class="mono text-xs text-muted">December 2025 &mdash; Present</p>
+            <p class="mt-1 text-sm font-semibold">IT Operation Center</p>
+            <p class="text-sm text-muted">{profile.company}</p>
+            <div class="mt-2 flex flex-wrap gap-2">
+              <span class="badge">Kibana</span>
+              <span class="badge">Huawei Cloud</span>
+              <span class="badge">VMware</span>
+              <span class="badge">Fortigate</span>
+              <span class="badge">F5</span>
+              <span class="badge">AWS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Item 2 -->
+        <div class="relative flex gap-6 pb-10">
+          <div class="flex flex-col items-center">
+            <div class="flex h-3 w-3 rounded-full bg-border"></div>
+            <div class="w-px flex-1 bg-border"></div>
+          </div>
+          <div class="-mt-1 pb-2">
+            <p class="mono text-xs text-muted">November 2023 &mdash; December 2025</p>
+            <p class="mt-1 text-sm font-semibold">Technical Support</p>
+            <p class="text-sm text-muted">Qwords Cloud Webhosting</p>
+            <div class="mt-2 flex flex-wrap gap-2">
+              <span class="badge">Hosting</span>
+              <span class="badge">Linux</span>
+              <span class="badge">DNS</span>
+              <span class="badge">Email</span>
+              <span class="badge">Security</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Item 3 -->
+        <div class="relative flex gap-6">
+          <div class="flex flex-col items-center">
+            <div class="flex h-3 w-3 rounded-full bg-border"></div>
+          </div>
+          <div class="-mt-1 pb-2">
+            <p class="mono text-xs text-muted">September 2021 &mdash; August 2023</p>
+            <p class="mt-1 text-sm font-semibold">Computer Laboratory Staff</p>
+            <p class="text-sm text-muted">STMIK IKMI Cirebon</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <a href="/resume/" class="text-sm text-primary hover:underline">
+          View full resume &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

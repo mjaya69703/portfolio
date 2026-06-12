@@ -1,0 +1,32 @@
+---
+title: "Monitoring Infrastructure with Grafana and Prometheus"
+description: "A practical guide to setting up monitoring for your infrastructure using the Grafana-Prometheus stack."
+date: 2025-04-20
+tags: ["monitoring", "grafana", "prometheus", "infrastructure"]
+category: "Infrastructure"
+---
+
+## The Observability Stack
+
+Monitoring is non-negotiable when running production infrastructure. The Grafana-Prometheus combo provides a powerful and open-source solution.
+
+## Architecture
+
+```
+Targets -> Prometheus -> Grafana
+   ^                      |
+   +---- Alertmanager <---+
+```
+
+## Setup Steps
+
+1. Deploy Prometheus with proper scrape configurations
+2. Configure Grafana datasources
+3. Build dashboards for key metrics
+4. Set up alerting rules
+
+## Lessons from Production
+
+- Keep scrape intervals reasonable (15s is a good default)
+- Use recording rules for frequently queried metrics
+- Label everything consistently

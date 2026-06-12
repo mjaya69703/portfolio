@@ -1,0 +1,25 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  icon?: string;
+  external?: boolean;
+}
+
+const { href, label, icon, external = false } = Astro.props;
+const currentPath = Astro.url.pathname;
+const isActive = href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<a
+  href={href}
+  class:list={[
+    'text-sm transition-colors duration-150',
+    isActive
+      ? 'text-text font-medium'
+      : 'text-muted hover:text-text'
+  ]}
+  {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+>
+  {label}
+</a>

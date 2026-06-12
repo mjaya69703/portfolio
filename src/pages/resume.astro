@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { existsSync } from 'node:fs';
+import { profile } from '../data/profile';
+
+const hasResumePdf = existsSync('public/resume.pdf');
+---
+
+<BaseLayout title="Resume - AscendKyo.dev" description="Professional summary of Muhamad Jaya Kusuma (AscendKyo)">
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-5xl">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-bold tracking-tight">Resume</h1>
+          <p class="mt-2 text-muted">Professional summary and career history</p>
+        </div>
+        {hasResumePdf ? (
+          <a href="/resume.pdf" class="btn-secondary shrink-0" download>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+            Download PDF
+          </a>
+        ) : (
+          <span class="badge shrink-0">PDF unavailable</span>
+        )}
+      </div>
+
+      <!-- Summary -->
+      <div class="mt-10">
+        <h2 class="section-title">Summary</h2>
+        <p class="mt-4 text-sm text-muted leading-relaxed max-w-3xl">
+          {profile.role} with experience in infrastructure monitoring, cloud operations, and technical support. Passionate about building reliable systems, automating workflows, and continuously improving operational efficiency. Currently focused on expanding skills in DevOps, Cloud Engineering, and Infrastructure Automation.
+        </p>
+      </div>
+
+      <!-- Experience -->
+      <div class="mt-10">
+        <h2 class="section-title">Experience</h2>
+        <div class="mt-6 space-y-8">
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-base font-semibold">IT Operation Center</h3>
+                <p class="text-sm text-muted">{profile.company}</p>
+              </div>
+              <span class="mono text-xs text-muted shrink-0">December 2025 &mdash; Present</span>
+            </div>
+            <ul class="mt-3 list-disc space-y-1.5 pl-4 text-sm text-muted marker:text-primary">
+              <li class="pl-1">Monitoring infrastructure using Kibana and observability tools</li>
+              <li class="pl-1">Managing Huawei Cloud and AWS resources</li>
+              <li class="pl-1">Operating VMware virtualization environment</li>
+              <li class="pl-1">Managing Fortigate firewalls and F5 load balancers</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-base font-semibold">Technical Support</h3>
+                <p class="text-sm text-muted">Qwords Cloud Webhosting</p>
+              </div>
+              <span class="mono text-xs text-muted shrink-0">November 2023 &mdash; December 2025</span>
+            </div>
+            <ul class="mt-3 list-disc space-y-1.5 pl-4 text-sm text-muted marker:text-primary">
+              <li class="pl-1">Provided technical support for web hosting services</li>
+              <li class="pl-1">Managed Linux servers, DNS, and email systems</li>
+              <li class="pl-1">Handled security incidents and vulnerability assessments</li>
+              <li class="pl-1">Resolved customer infrastructure issues</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-base font-semibold">Computer Laboratory Staff</h3>
+                <p class="text-sm text-muted">STMIK IKMI Cirebon</p>
+              </div>
+              <span class="mono text-xs text-muted shrink-0">September 2021 &mdash; August 2023</span>
+            </div>
+            <ul class="mt-3 list-disc space-y-1.5 pl-4 text-sm text-muted marker:text-primary">
+              <li class="pl-1">Maintained computer lab infrastructure and equipment</li>
+              <li class="pl-1">Provided technical support for students and faculty</li>
+              <li class="pl-1">Managed lab network and software installations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="mt-10">
+        <h2 class="section-title">Skills</h2>
+        <div class="mt-6 grid gap-6 md:grid-cols-3">
+          <div>
+            <h3 class="text-sm font-medium text-text">Programming</h3>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="badge mono text-xs">Laravel</span>
+              <span class="badge mono text-xs">JavaScript</span>
+              <span class="badge mono text-xs">Next.js</span>
+              <span class="badge mono text-xs">Node.js</span>
+              <span class="badge mono text-xs">Python</span>
+              <span class="badge mono text-xs">Bash</span>
+              <span class="badge mono text-xs">HTML/CSS</span>
+              <span class="badge mono text-xs">YAML</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-text">Infrastructure</h3>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="badge mono text-xs">Linux</span>
+              <span class="badge mono text-xs">Docker</span>
+              <span class="badge mono text-xs">Nginx</span>
+              <span class="badge mono text-xs">VMware</span>
+              <span class="badge mono text-xs">Proxmox</span>
+              <span class="badge mono text-xs">Prometheus</span>
+              <span class="badge mono text-xs">Grafana</span>
+              <span class="badge mono text-xs">Zabbix</span>
+              <span class="badge mono text-xs">Wazuh</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-text">Networking & Security</h3>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="badge mono text-xs">Mikrotik</span>
+              <span class="badge mono text-xs">Unifi</span>
+              <span class="badge mono text-xs">Cisco</span>
+              <span class="badge mono text-xs">Fortigate</span>
+              <span class="badge mono text-xs">F5</span>
+              <span class="badge mono text-xs">DNS</span>
+              <span class="badge mono text-xs">SSL/TLS</span>
+              <span class="badge mono text-xs">Cloudflare</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-text">Cloud & Hosting</h3>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="badge mono text-xs">AWS</span>
+              <span class="badge mono text-xs">Huawei Cloud</span>
+              <span class="badge mono text-xs">Alibaba Cloud</span>
+              <span class="badge mono text-xs">cPanel/WHM</span>
+              <span class="badge mono text-xs">Directadmin</span>
+              <span class="badge mono text-xs">VPS</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-text">Database & Storage</h3>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="badge mono text-xs">MySQL</span>
+              <span class="badge mono text-xs">PostgreSQL</span>
+              <span class="badge mono text-xs">MinIO</span>
+              <span class="badge mono text-xs">Bind</span>
+              <span class="badge mono text-xs">PowerDNS</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-text">DevOps & Tools</h3>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="badge mono text-xs">Git</span>
+              <span class="badge mono text-xs">GitHub Actions</span>
+              <span class="badge mono text-xs">CI/CD</span>
+              <span class="badge mono text-xs">Nextcloud</span>
+              <span class="badge mono text-xs">WordPress</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="mt-10">
+        <h2 class="section-title">Education</h2>
+        <div class="mt-6 space-y-8">
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-base font-semibold">Universitas Cakrawala</h3>
+                <p class="text-sm text-muted">Sistem & Teknologi Informasi</p>
+              </div>
+              <span class="mono text-xs text-muted shrink-0">September 2024 &mdash; Present</span>
+            </div>
+            <ul class="mt-3 list-disc space-y-1.5 pl-4 text-sm text-muted marker:text-primary">
+              <li class="pl-1">Back-End Engineer at SGA Cakrawala University campus organization</li>
+              <li class="pl-1">Server setup & deployment of Node.js & Docker-based websites</li>
+              <li class="pl-1">Online Sales System development with NestJS</li>
+              <li class="pl-1">Docker application deployment (MinIO, Strapi, Vaultwarden, etc.)</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-base font-semibold">SMK Veteran Cirebon</h3>
+                <p class="text-sm text-muted">Teknik Komputer dan Jaringan</p>
+              </div>
+              <span class="mono text-xs text-muted shrink-0">June 2018 &mdash; June 2021</span>
+            </div>
+            <ul class="mt-3 list-disc space-y-1.5 pl-4 text-sm text-muted marker:text-primary">
+              <li class="pl-1">LKS IT Network System Administrator Competition, Cirebon City Level 2019</li>
+              <li class="pl-1">Install & configure Debian Server, DNS, DHCP, SSH, Web, Mail, Proxy</li>
+              <li class="pl-1">Cisco Packet Tracer: Subnetting, Routing, Switching, VPN</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="mt-10">
+        <h2 class="section-title">Certifications</h2>
+        <div class="mt-6 space-y-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="text-sm font-semibold">Crash Course: Kubernetes For Absolute Beginners</h3>
+              <p class="text-xs text-muted">KodeKloud</p>
+            </div>
+            <span class="mono text-xs text-muted shrink-0">December 2025</span>
+          </div>
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="text-sm font-semibold">cPanel Professional Certification Exam (CPP)</h3>
+              <p class="text-xs text-muted">cPanel University</p>
+            </div>
+            <span class="mono text-xs text-muted shrink-0">September 2024</span>
+          </div>
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="text-sm font-semibold">Docker for the Absolute Beginner - Hands On - DevOps</h3>
+              <p class="text-xs text-muted">Udemy - KodeKloud Training</p>
+            </div>
+            <span class="mono text-xs text-muted shrink-0">August 2024</span>
+          </div>
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="text-sm font-semibold">CCNA v7: Enterprise Networking, Security and Automation</h3>
+              <p class="text-xs text-muted">Cisco Networking Academy</p>
+            </div>
+            <span class="mono text-xs text-muted shrink-0">June 2022</span>
+          </div>
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="text-sm font-semibold">NDG: Linux Essentials</h3>
+              <p class="text-xs text-muted">Net Dev Group</p>
+            </div>
+            <span class="mono text-xs text-muted shrink-0">March 2022</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

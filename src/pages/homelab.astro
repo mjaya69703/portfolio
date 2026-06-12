@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const techStack = [
+  'Windows',
+  'VMware Workstation',
+  'Proxmox VE',
+  'Docker',
+  'Nginx',
+  'MariaDB',
+  'Cloudflare Tunnel',
+  'Hermes AI',
+];
+
+const metrics = [
+  { label: 'Physical Hosts', value: '1' },
+  { label: 'LXC Containers', value: '5' },
+  { label: 'Services', value: '12+' },
+  { label: 'Domains', value: '5+' },
+];
+---
+
+<BaseLayout
+  title="Homelab - AscendKyo.dev"
+  description="Infrastructure and experimentation environment of AscendKyo"
+>
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-5xl">
+      <h1 class="text-3xl font-bold tracking-tight">Homelab</h1>
+
+      <p class="mt-2 text-muted">
+        A self-hosted environment built on a single Mini PC used for daily work,
+        software development, gaming, and infrastructure experimentation.
+      </p>
+
+      <div class="mt-10">
+        <h2 class="section-title">Infrastructure Overview</h2>
+
+        <div class="card mt-6">
+<pre class="mono text-sm leading-relaxed text-muted overflow-x-auto"><code>Mini PC (Windows Host)
+│
+└── VMware Workstation
+    │
+    └── Proxmox VE
+        │
+        ├── LXC: Proxy
+        │     └── Cloudflare Tunnel
+        │
+        ├── LXC: Web Application
+        │     ├── Web Arpotret ( arpotret.idev-fun.org )
+        │     ├── Web SiakadPT ( siakad-pt.idev-fun.org )
+        │     ├── Web NecoSiakad ( neco-siakad.idev-fun.org )
+        │     ├── Web Nexacampus ( nexacampus.idev-fun.org )
+        │     └── Web laraflare ( laraflare.idev-fun.org )
+        │
+        ├── LXC: Docker
+        │     ├── Applications ( N8N, Vaultwarden, Affine )
+        │     ├── Monitoring ( Grafana + Prometheus )
+        │     └── Supporting Services
+        │
+        ├── LXC: Database
+        │     └── MariaDB
+        │
+        └── LXC: Hermes
+              ├── Ansible
+              └── AI Agent Platform
+</code></pre>
+        </div>
+
+        <div class="card mt-6">
+          <h3 class="text-sm font-medium">
+            Infrastructure Philosophy
+          </h3>
+
+          <p class="mt-3 text-sm text-muted leading-relaxed">
+            This homelab intentionally runs on a single Mini PC.
+            Instead of expanding hardware, the focus is on virtualization,
+            service isolation, and efficient resource utilization.
+          </p>
+
+          <p class="mt-3 text-sm text-muted leading-relaxed">
+            The same machine is used for:
+          </p>
+
+          <ul class="mt-3 space-y-2 text-sm text-muted">
+            <li>• Daily Productivity</li>
+            <li>• Software Development</li>
+            <li>• Gaming</li>
+            <li>• Self-Hosted Services</li>
+            <li>• AI Experimentation</li>
+          </ul>
+        </div>
+        <div class="card mt-6">
+          <h3 class="text-sm font-medium">Current Hardware</h3>
+
+          <div class="mt-4 space-y-2 mono text-sm text-muted">
+            <p>CPU        : Intel Core i5-1250P</p>
+            <p>Cores      : 12 (4P + 8E)</p>
+            <p>Threads    : 16</p>
+            <p>Memory     : 24 GB RAM</p>
+            <p>Storage    : 1 TB SSD</p>
+            <p>Host OS    : Windows 11 Pro</p>
+            <p>Hypervisor : VMware Workstation</p>
+            <p>Lab Stack  : Proxmox VE + LXC</p>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="mt-10">
+        <div class="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <h2 class="section-title">Metrics</h2>
+          <p class="mono text-xs text-muted">Current snapshot</p>
+        </div>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {metrics.map((m) => (
+            <div class="card text-center">
+              <p class="text-3xl font-bold text-primary mono">
+                {m.value}
+              </p>
+              <p class="mt-1 text-sm text-muted">
+                {m.label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+
+      </div>
+
+      <div class="mt-10">
+        <h2 class="section-title">Technology Stack</h2>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          {techStack.map((tech) => (
+            <div class="card flex items-center gap-2 py-2.5 px-4">
+              <span class="mono text-sm">{tech}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      
+
+      <div class="mt-10">
+        <h2 class="section-title">Services</h2>
+
+        <div class="mt-6 grid gap-4 md:grid-cols-2">
+          <div class="card">
+            <h3 class="text-sm font-medium">
+              Cloudflare Tunnel
+            </h3>
+
+            <p class="mt-2 text-xs text-muted">
+              Securely exposes internal services without opening inbound ports.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="text-sm font-medium">
+              Nginx Web Layer
+            </h3>
+
+            <p class="mt-2 text-xs text-muted">
+              Reverse proxy and web serving layer for internal applications.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="text-sm font-medium">
+              Docker Services
+            </h3>
+
+            <p class="mt-2 text-xs text-muted">
+              Containerized applications and supporting services running inside Proxmox.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="text-sm font-medium">
+              MariaDB
+            </h3>
+
+            <p class="mt-2 text-xs text-muted">
+              Central database service used by self-hosted applications.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="text-sm font-medium">
+              Hermes AI
+            </h3>
+
+            <p class="mt-2 text-xs text-muted">
+              Personal AI experimentation environment and agent platform.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,86 @@
+---
+title: "I Release Project NexaCampus"
+description: "Introducing NexaCampus — a modern, modular academic information system for Indonesian higher education built with Laravel 12 and Livewire 4."
+date: 2025-05-15
+tags: ["laravel", "livewire", "open-source", "education"]
+category: "Project"
+---
+
+## What is NexaCampus?
+
+NexaCampus is a **Sistem Informasi Akademik Perguruan Tinggi (SIAKAD PT)** — a comprehensive academic information system for Indonesian higher education institutions. It covers everything from academic management, learning, admissions, student finance, student services, HR, to academic oversight — all in a single web application.
+
+The project is open-source and available on GitHub: [mjaya69703/nexacampus](https://github.com/mjaya69703/nexacampus).
+
+A live demo is available at [nexacampus.idev-fun.org](https://nexacampus.idev-fun.org).
+
+## Tech Stack
+
+- **Laravel 12** — the backend framework
+- **Livewire 4** — reactive UI without writing JavaScript
+- **PowerGrid** — data tables for admin panels
+- **Spatie Permission** — role & permission management
+- **Tailwind CSS + Vite** — modern frontend build tooling
+- **Dompdf & PhpSpreadsheet** — PDF reports and Excel exports
+- **Leaflet** — maps for attendance location validation
+- **PWA support** — installable on mobile devices
+
+## Why I Built It
+
+Many Indonesian universities, colleges, and higher education institutions still rely on fragmented or legacy systems. NexaCampus aims to provide a **clean, modular, and extensible foundation** that can serve as:
+
+- A starter academic information system
+- A student, lecturer, and staff portal
+- An admissions and financial management platform
+- A dashboard for academic leaders (Dean, Head of Department)
+
+The goal was to build something that's production-ready but also easy to customize for each institution's unique needs.
+
+## Key Features
+
+### Academic Management
+
+The academic module handles the full lifecycle: academic year setup, faculty & study program management, curriculum, course offerings, KRS (study plan) with SKS validation, class scheduling, QR-based attendance, grading with weighted components, transcripts with GPA calculation, and academic advising with progress analytics.
+
+### Learning Management
+
+Lecturers can manage course materials with multi-file uploads, PDF/image preview, YouTube embeds, and discussion threads. Students get bookmarking, download tracking, assignment submission, and deadline reminders via email.
+
+### Admissions (PMB)
+
+A complete admission pipeline: period management, public application form, token-based applicant portal, document upload & verification, review workflow with scoring, exam/interview scheduling, selection dashboard with ranking and quota, and automatic conversion of accepted applicants into student profiles with flexible NIM generation.
+
+### Student Finance
+
+Full financial lifecycle: tuition fee templates, invoice generation (manual, bulk, scheduled), payment proof upload and verification, installment plans with tenor simulation, financial clearance policies, holds and waivers, scholarship management, and a comprehensive financial dashboard for admins.
+
+### Student Services
+
+Students can request academic letters, leave of absence, program transfers, and graduation applications — all with approval workflows and email notifications. There's also a complaint system with categories, attachments, and staff assignment.
+
+### HR & Organization
+
+Organizational structure management, employee attendance with GPS validation, leave management, and staff development tracking (training, certifications).
+
+### BKD, EDOM & Academic Oversight
+
+Lecturer workload reporting (BKD) with auto-draft from teaching and Tridharma activities, student evaluation of teaching (EDOM) with anonymous aggregation, lecturer performance reviews, and an academic leader portal with dashboards, alerts, and report exports.
+
+## Architecture Highlights
+
+The project uses a **resource registry pattern** in `config/resources.php` that centralizes CRUD routes, permissions, and menu items. Domain seeders are modular — split across academic, admission, financial, student service, and organization domains. An internal approval engine handles cross-module review workflows, and a position scope resolver limits academic leader access based on their assigned role.
+
+## Getting Started
+
+Clone the repo and run:
+
+```bash
+composer run setup
+composer run dev
+```
+
+The setup wizard is available at `/welcome` and login at `/auth/login`. For production, make sure to configure the Laravel Scheduler for automation tasks like invoice generation, overdue checks, and assignment reminders.
+
+## What's Next
+
+I'm continuously improving NexaCampus with plans for mobile app integration, more granular analytics, and expanded reporting. If you're interested in contributing or using it for your institution, check out the [GitHub repo](https://github.com/mjaya69703/nexacampus) and feel free to open issues or pull requests.
