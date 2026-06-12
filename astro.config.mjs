@@ -10,9 +10,6 @@ import robots from 'astro-robots';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ascendkyo.dev',
-  logging: {
-    level: 'warn',
-  },
   vite: {
     plugins: [tailwindcss()],
     logLevel: 'warn',
