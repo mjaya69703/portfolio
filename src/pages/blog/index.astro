@@ -6,7 +6,17 @@ const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
-const categories = [...new Set(posts.map((p) => p.data.category))].sort();
+const categoryCounts = posts.reduce<Record<string, number>>((counts, post) => {
+  counts[post.data.category] = (counts[post.data.category] ?? 0) + 1;
+  return counts;
+}, {});
+
+const categories = Object.entries(categoryCounts)
+  .sort(([aCategory, aCount], [bCategory, bCount]) => bCount - aCount || aCategory.localeCompare(bCategory))
+  .map(([category, count]) => ({ category, count }));
+
+const categoryLimit = 12;
+const hasManyCategories = categories.length + 1 > categoryLimit;
 ---
 
 <BaseLayout title="Blog - AscendKyo.dev" description="Knowledge repository - articles about DevOps, Infrastructure, Linux, Docker, and more">
@@ -16,19 +26,31 @@ const categories = [...new Set(posts.map((p) => p.data.category))].sort();
       <p class="mt-2 text-muted">What has been learned and how problems were solved</p>
 
       <!-- Categories -->
-      <div class="mt-8 flex flex-wrap gap-2">
-        <span class="badge badge-primary">All</span>
-        {categories.map((cat) => (
-          <span class="badge">{cat}</span>
-        ))}
+      <div class="mt-8" aria-label="Filter blog posts by category">
+        <div class="flex flex-wrap gap-2" id="category-filters">
+          <button type="button" class="badge badge-primary category-filter" data-category="all" data-index="0" aria-pressed="true">
+            All
+          </button>
+          {categories.map(({ category, count }, index) => (
+            <button type="button" class="badge category-filter" data-category={category} data-index={index + 1} aria-pressed="false">
+              {category}
+              {hasManyCategories && <span class="category-count">{count}</span>}
+            </button>
+          ))}
+          {hasManyCategories && (
+            <button type="button" class="category-more" id="category-more" aria-expanded="false">
+              More
+            </button>
+          )}
+        </div>
       </div>
 
       <!-- Posts -->
-      <div class="mt-10 space-y-6">
+      <div class="mt-10 space-y-6" id="blog-posts">
         {posts.map((post) => {
           const readingTime = Math.max(1, Math.round(post.body?.split(/\s+/).length / 200));
           return (
-            <a href={`/blog/${post.id}/`} class="card block">
+            <a href={`/blog/${post.id}/`} class="card block blog-post" data-category={post.data.category}>
               <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                 <div>
                   <h2 class="text-base font-semibold">{post.data.title}</h2>
@@ -51,3 +73,70 @@ const categories = [...new Set(posts.map((p) => p.data.category))].sort();
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const visibleCategoryLimit = 12;
+  const filters = Array.from(document.querySelectorAll<HTMLButtonElement>('.category-filter'));
+  const posts = Array.from(document.querySelectorAll<HTMLElement>('.blog-post'));
+  const moreButton = document.querySelector<HTMLButtonElement>('#category-more');
+  let showAllCategories = false;
+
+  const setActiveCategory = (category: string, updateUrl = true) => {
+    const selected = category.toLowerCase();
+
+    filters.forEach((filter) => {
+      const isActive = filter.dataset.category?.toLowerCase() === selected;
+      filter.classList.toggle('badge-primary', isActive);
+      filter.setAttribute('aria-pressed', String(isActive));
+    });
+
+    posts.forEach((post) => {
+      const isMatch = selected === 'all' || post.dataset.category?.toLowerCase() === selected;
+      post.classList.toggle('hidden', !isMatch);
+    });
+
+    if (!updateUrl) return;
+
+    const url = new URL(window.location.href);
+    if (selected === 'all') {
+      url.searchParams.delete('category');
+    } else {
+      url.searchParams.set('category', category);
+    }
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  };
+
+  const updateVisibleCategories = () => {
+    filters.forEach((filter) => {
+      const index = Number(filter.dataset.index ?? 0);
+      const isWithinLimit = showAllCategories || index < visibleCategoryLimit;
+      filter.classList.toggle('hidden', !isWithinLimit);
+    });
+
+    if (!moreButton) return;
+
+    const canExpand = filters.length > visibleCategoryLimit;
+    moreButton.classList.toggle('hidden', !canExpand);
+    moreButton.textContent = showAllCategories ? 'Less' : 'More';
+    moreButton.setAttribute('aria-expanded', String(showAllCategories));
+  };
+
+  filters.forEach((filter) => {
+    filter.addEventListener('click', () => {
+      setActiveCategory(filter.dataset.category ?? 'all');
+    });
+  });
+
+  search?.addEventListener('input', updateVisibleCategories);
+
+  moreButton?.addEventListener('click', () => {
+    showAllCategories = !showAllCategories;
+    updateVisibleCategories();
+  });
+
+  const initialCategory = new URLSearchParams(window.location.search).get('category') ?? 'all';
+  const hasInitialCategory = filters.some((filter) => filter.dataset.category?.toLowerCase() === initialCategory.toLowerCase());
+  showAllCategories = initialCategory !== 'all';
+  updateVisibleCategories();
+  setActiveCategory(hasInitialCategory ? initialCategory : 'all', false);
+</script>

@@ -8,6 +8,12 @@ const stats = [
   { value: '5+', label: 'Open Source Projects' },
   { value: '45+', label: 'GitHub Stars' },
 ];
+
+const opsSnapshot = [
+  { label: 'Monitoring', value: 'Grafana / Kibana' },
+  { label: 'Edge', value: 'Cloudflare / Nginx' },
+  { label: 'Runtime', value: 'Docker / Proxmox' },
+];
 ---
 
 <BaseLayout title="AscendKyo.dev">
@@ -48,25 +54,35 @@ const stats = [
             ))}
           </div>
         </div>
-        <!-- Right: Terminal -->
-        <div class="lg:col-span-2 flex items-start">
-          <div class="card w-full !p-0 overflow-hidden">
-            <div class="flex items-center gap-2 px-4 py-3 border-b border-border bg-bg/50">
-              <div class="h-2.5 w-2.5 rounded-full bg-danger/60"></div>
-              <div class="h-2.5 w-2.5 rounded-full bg-warning/60"></div>
-              <div class="h-2.5 w-2.5 rounded-full bg-success/60"></div>
-              <span class="ml-2 mono text-xs text-muted">~/ascendkyo</span>
+
+        <!-- Right: Operating Stack -->
+        <div class="lg:col-span-2">
+          <div class="card h-full">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <p class="mono text-xs uppercase tracking-wider text-muted">Operating Stack</p>
+                <h2 class="mt-2 text-lg font-semibold">Tools in daily rotation</h2>
+              </div>
+              <span class="flex h-2.5 w-2.5 rounded-full bg-success"></span>
             </div>
-            <div class="p-4 mono text-sm leading-relaxed">
-              <p><span class="text-success">$</span> whoami</p>
-              <p class="text-muted">mjaya69703</p>
-              <p class="mt-2"><span class="text-success">$</span> cat role.txt</p>
-              <p class="text-muted">IT Operation Center</p>
-              <p class="mt-2"><span class="text-success">$</span> ls homelab/</p>
-              <p class="text-muted">proxmox docker nginx<br/>grafana cloudflare-tunnel</p>
-              <p class="mt-2"><span class="text-success">$</span> echo $FOCUS</p>
-              <p class="text-primary">DevOps &amp; Cloud Infra</p>
-              <p class="mt-2"><span class="text-success">$</span> <span class="inline-block w-2 h-4 bg-text/70 animate-pulse"></span></p>
+
+            <div class="mt-6 space-y-4">
+              {opsSnapshot.map((item) => (
+                <div class="flex items-start justify-between gap-4 border-b border-border pb-4 last:border-b-0 last:pb-0">
+                  <div>
+                    <p class="text-sm font-medium">{item.label}</p>
+                    <p class="mt-1 text-xs text-muted">{item.value}</p>
+                  </div>
+                  <span class="mono text-xs text-muted">in use</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="mt-6 rounded-lg border border-border bg-bg/50 p-4">
+              <p class="mono text-xs text-muted">current focus</p>
+              <p class="mt-2 text-sm leading-relaxed text-muted">
+                Monitoring, edge services, and containerized workloads for practical infrastructure work.
+              </p>
             </div>
           </div>
         </div>

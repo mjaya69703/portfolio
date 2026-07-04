@@ -76,6 +76,58 @@
     color: var(--color-primary);
   }
 
+  .category-filter {
+    border: 0;
+    cursor: pointer;
+    gap: 0.35rem;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .category-filter:hover {
+    color: var(--color-text);
+  }
+
+  .category-filter:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .category-count {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    opacity: 0.65;
+  }
+
+  .category-more {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    background-color: transparent;
+    color: var(--color-muted);
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+    min-height: 1.625rem;
+    padding: 0.25rem 0.75rem;
+    transition:
+      border-color 150ms ease,
+      color 150ms ease;
+  }
+
+  .category-more:hover {
+    border-color: var(--color-muted);
+    color: var(--color-text);
+  }
+
+  .category-more:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
   .badge-success {
     background-color: rgba(34, 197, 94, 0.15);
     color: var(--color-success);

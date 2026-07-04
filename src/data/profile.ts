@@ -1,7 +1,7 @@
 export const profile = {
   name: 'Muhamad Jaya Kusuma',
   alias: 'AscendKyo',
-  domain: 'AscendKyo.dev',
+  domain: 'Idev-fun.org',
   role: 'IT Operation Center',
   company: 'Alto Network',
   email: 'hello@ascendkyo.dev',
