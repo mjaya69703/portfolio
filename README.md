@@ -1,4 +1,4 @@
-# ascendkyo.dev
+# Jaya Portfolio
 
 Personal portfolio website built with Astro, Tailwind CSS, and MDX.
 

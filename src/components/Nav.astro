@@ -1,5 +1,6 @@
 ---
 import NavLink from './NavLink.astro';
+import Icon from './Icon.astro';
 import { profile } from '../data/profile';
 
 const navItems = [
@@ -12,63 +13,197 @@ const navItems = [
 ];
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-bg/80 backdrop-blur-md">
-  <nav class="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
-    <a href="/" class="text-sm font-bold tracking-tight text-text mono" aria-label={profile.domain}>
-      {profile.alias}<span class="text-primary">.dev</span>
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 border-b border-border/70 bg-bg/70 backdrop-blur-xl"
+>
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+
+  <nav class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-6">
+    <a
+      href="/"
+      class="group flex items-center gap-2.5 text-sm font-bold tracking-tight"
+      aria-label={profile.siteName}
+    >
+      <span class="flex h-7 w-7 items-center justify-center rounded-md border border-primary/25 bg-primary/10 text-primary transition-colors group-hover:border-primary/45 group-hover:bg-primary/15">
+        <Icon name="terminal" size={14} strokeWidth={2.2} />
+      </span>
+      <span class="mono">
+        {profile.brand.lead} <span class="text-primary">{profile.brand.accent}</span>
+      </span>
     </a>
 
-    <div class="hidden items-center gap-6 md:flex">
+    <div class="hidden items-center gap-1 md:flex">
       {navItems.map((item) => (
         <NavLink href={item.href} label={item.label} />
       ))}
     </div>
 
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-1.5">
       <a
         href={profile.links.github}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-muted transition-colors duration-150 hover:text-text"
+        class="flex h-8 w-8 items-center justify-center rounded-md text-muted transition-colors hover:bg-white/[0.04] hover:text-text"
         aria-label="GitHub"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+        <Icon name="github" size={17} />
       </a>
       <a
         href={profile.links.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-muted transition-colors duration-150 hover:text-text"
+        class="hidden h-8 w-8 items-center justify-center rounded-md text-muted transition-colors hover:bg-white/[0.04] hover:text-text sm:flex"
         aria-label="LinkedIn"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        <Icon name="linkedin" size={17} />
       </a>
+
+      <span class="mx-1 hidden h-4 w-px bg-border sm:block"></span>
 
       <!-- Mobile menu button -->
       <button
         id="mobile-menu-btn"
-        class="text-muted hover:text-text md:hidden"
-        aria-label="Toggle menu"
+        class="flex h-8 w-8 items-center justify-center rounded-md text-muted transition-colors hover:bg-white/[0.04] hover:text-text md:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+        <span id="menu-icon-open" class="flex">
+          <Icon name="menu" size={19} />
+        </span>
+        <span id="menu-icon-close" class="hidden">
+          <Icon name="x" size={19} />
+        </span>
       </button>
     </div>
   </nav>
 
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden border-t border-border md:hidden">
-    <div class="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-4">
-      {navItems.map((item) => (
-        <NavLink href={item.href} label={item.label} />
-      ))}
-    </div>
-  </div>
 </header>
 
+<!-- Mobile menu -->
+<div id="mobile-menu" class="mobile-sheet md:hidden" aria-hidden="true" inert>
+  <div class="mobile-sheet-inner">
+    <div class="flex items-center justify-between">
+      <p class="eyebrow eyebrow-line">Navigation</p>
+      <p class="mono text-[10px] uppercase tracking-[0.16em] text-subtle">
+        {String(navItems.length).padStart(2, '0')} routes
+      </p>
+    </div>
+
+    <nav class="mobile-sheet-links" aria-label="Mobile navigation">
+      {navItems.map((item, index) => (
+        <NavLink href={item.href} label={item.label} variant="sheet" index={index} />
+      ))}
+    </nav>
+
+    <div class="mobile-sheet-footer">
+      <p class="mono text-[11px] text-subtle">Cloud &middot; Reliability &middot; DevOps</p>
+      <div class="flex items-center gap-2">
+        <a
+          href={profile.links.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted transition-colors hover:border-border-strong hover:text-text"
+          aria-label="GitHub"
+        >
+          <Icon name="github" size={16} />
+        </a>
+        <a
+          href={profile.links.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted transition-colors hover:border-border-strong hover:text-text"
+          aria-label="LinkedIn"
+        >
+          <Icon name="linkedin" size={16} />
+        </a>
+        <a
+          href={`mailto:${profile.email}`}
+          class="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted transition-colors hover:border-border-strong hover:text-text"
+          aria-label="Email"
+        >
+          <Icon name="mail" size={16} />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
+  const header = document.getElementById('site-header');
+  const updateHeader = () => {
+    header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  };
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  const menuButton = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const openIcon = document.getElementById('menu-icon-open');
+  const closeIcon = document.getElementById('menu-icon-close');
+
+  const setMenuOpen = (open: boolean, restoreFocus = false) => {
+    mobileMenu?.classList.toggle('is-open', open);
+    mobileMenu?.setAttribute('aria-hidden', String(!open));
+    if (mobileMenu) mobileMenu.inert = !open;
+    menuButton?.setAttribute('aria-expanded', String(open));
+    menuButton?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    openIcon?.classList.toggle('hidden', open);
+    closeIcon?.classList.toggle('hidden', !open);
+    header?.classList.toggle('is-menu-open', open);
+    document.body.classList.toggle('menu-open', open);
+
+    if (open) {
+      requestAnimationFrame(() => {
+        mobileMenu?.querySelector<HTMLAnchorElement>('a')?.focus();
+      });
+    } else if (restoreFocus) {
+      menuButton?.focus();
+    }
+  };
+
+  menuButton?.addEventListener('click', () => {
+    setMenuOpen(!(mobileMenu?.classList.contains('is-open') ?? false));
+  });
+
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!mobileMenu?.classList.contains('is-open')) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      setMenuOpen(false, true);
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
+
+    const focusable = [
+      menuButton,
+      ...mobileMenu.querySelectorAll<HTMLElement>('a, button'),
+    ].filter((element): element is HTMLElement => Boolean(element));
+
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768 && mobileMenu?.classList.contains('is-open')) {
+      setMenuOpen(false);
+    }
   });
 </script>

@@ -1,25 +1,40 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   href: string;
   label: string;
-  icon?: string;
-  external?: boolean;
+  variant?: 'desktop' | 'sheet';
+  index?: number;
 }
 
-const { href, label, icon, external = false } = Astro.props;
+const { href, label, variant = 'desktop', index = 0 } = Astro.props;
 const currentPath = Astro.url.pathname;
 const isActive = href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 ---
 
-<a
-  href={href}
-  class:list={[
-    'text-sm transition-colors duration-150',
-    isActive
-      ? 'text-text font-medium'
-      : 'text-muted hover:text-text'
-  ]}
-  {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
->
-  {label}
-</a>
+{variant === 'sheet' ? (
+  <a
+    href={href}
+    class="mobile-sheet-link"
+    data-active={isActive ? 'true' : 'false'}
+    aria-current={isActive ? 'page' : undefined}
+    style={`--i: ${index}`}
+  >
+    <span class="mobile-sheet-index mono">{String(index + 1).padStart(2, '0')}</span>
+    <span class="mobile-sheet-label">{label}</span>
+    <span class="mobile-sheet-meta">
+      {isActive && <span class="mobile-sheet-current mono">current</span>}
+      <Icon name="arrow-up-right" size={16} class="mobile-sheet-arrow" />
+    </span>
+  </a>
+) : (
+  <a
+    href={href}
+    class="nav-link"
+    data-active={isActive ? 'true' : 'false'}
+    aria-current={isActive ? 'page' : undefined}
+  >
+    {label}
+  </a>
+)}

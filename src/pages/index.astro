@@ -1,232 +1,337 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import { profile, tagline } from '../data/profile';
 
-const techStack = ['Laravel', 'Docker', 'Linux', 'Nginx', 'Grafana', 'Cloudflare', 'AWS', 'Proxmox'];
+const techStack = [
+  'Linux',
+  'Docker',
+  'Proxmox',
+  'Grafana',
+  'ELK Stack',
+  'Cloudflare',
+  'Huawei Cloud',
+  'GCP',
+  'FortiGate',
+  'DNS',
+];
+
 const stats = [
-  { value: '3+', label: 'Years Experience' },
-  { value: '5+', label: 'Open Source Projects' },
-  { value: '45+', label: 'GitHub Stars' },
+  { value: '4+', label: 'Years in operations' },
+  { value: '12+', label: 'Self-hosted services' },
+  { value: '47', label: 'GitHub OSS stars' },
 ];
 
 const opsSnapshot = [
-  { label: 'Monitoring', value: 'Grafana / Kibana' },
-  { label: 'Edge', value: 'Cloudflare / Nginx' },
-  { label: 'Runtime', value: 'Docker / Proxmox' },
+  { label: 'Observability', value: 'ELK Stack / Grafana' },
+  { label: 'Cloud & Virtualization', value: 'Huawei Cloud / GCP / VMware' },
+  { label: 'Network & DNS', value: 'FortiGate / F5 ZoneRunner / Cloudflare' },
+];
+
+const focusAreas = [
+  {
+    icon: 'activity',
+    title: 'Infrastructure Monitoring',
+    meta: 'ELK Stack, Grafana, Prometheus',
+  },
+  {
+    icon: 'cloud',
+    title: 'Cloud Operations',
+    meta: 'Huawei Cloud, GCP, VMware vCenter',
+  },
+  {
+    icon: 'workflow',
+    title: 'DevOps & Automation',
+    meta: 'Docker, GitHub Actions, Bash',
+  },
+  {
+    icon: 'shield',
+    title: 'Reliability & Incident Response',
+    meta: 'Alert triage, DNS, transaction impact',
+  },
+  {
+    icon: 'server',
+    title: 'Homelab Development',
+    meta: 'Proxmox, LXC, Docker, Nginx',
+  },
+];
+
+const journey = [
+  {
+    period: 'Dec 2025 — Present',
+    role: 'IT Operations Center Engineer',
+    company: profile.company,
+    summary: 'Provisioning cloud and virtualized servers, managing enterprise DNS and firewall access, and monitoring production services.',
+    tags: ['Huawei Cloud', 'GCP', 'VMware', 'FortiGate', 'F5 ZoneRunner', 'ELK'],
+    current: true,
+  },
+  {
+    period: 'Nov 2023 — Nov 2025',
+    role: 'Technical Support',
+    company: 'PT Qwords Company International',
+    summary: 'Administered Linux and Windows hosting servers, resolved DNS, email, and security incidents, and migrated customer services with minimal downtime.',
+    tags: ['Linux', 'Windows Server', 'cPanel/WHM', 'DNS', 'Security'],
+    current: false,
+  },
+  {
+    period: 'Sep 2021 — Aug 2023',
+    role: 'Computer Laboratory Technician',
+    company: 'STMIK IKMI Cirebon',
+    summary: 'Maintained lab infrastructure, LAN connectivity, and software for students and faculty.',
+    tags: ['LAN', 'Hardware', 'Technical Support'],
+    current: false,
+  },
 ];
 ---
 
-<BaseLayout title="AscendKyo.dev">
-  <!-- Hero Section -->
-  <section class="px-6 py-24 md:py-32">
+<BaseLayout title={`${profile.name} (${profile.alias}) — Cloud Infrastructure, Reliability & DevOps`}>
+  <!-- Hero -->
+  <section class="relative px-6 pb-10 pt-16 md:pb-14 md:pt-24">
     <div class="mx-auto max-w-5xl">
-      <div class="grid gap-12 lg:grid-cols-5 lg:gap-8">
-        <!-- Left: Info -->
-        <div class="lg:col-span-3">
-          <p class="mono text-sm text-primary">Hello, I'm</p>
-          <h1 class="mt-3 text-4xl font-bold tracking-tight md:text-5xl">
-            {profile.name}
+      <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+        <div data-reveal>
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="badge badge-primary mono">
+              <span class="status-dot"></span>
+              {profile.role}
+            </span>
+            <span class="eyebrow">Cloud &middot; Reliability &middot; DevOps</span>
+          </div>
+
+          <h1 class="mt-6 text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.045em] sm:text-5xl lg:text-[3.4rem]">
+            Muhamad Jaya<br class="hidden sm:block" />{' '}
+            Kusuma
           </h1>
-          <p class="mt-1 mono text-lg text-muted">{profile.alias}</p>
-          <p class="mt-4 text-muted leading-relaxed">
-            {profile.role} &middot; Infrastructure Enthusiast &middot; Technical Support Background
+
+          <p class="mono mt-3 text-base text-primary-bright">
+            @{profile.alias}
           </p>
-          <p class="mt-3 text-muted leading-relaxed">
-            {tagline} Continuously learning cloud, automation, and reliable operations.
+
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+            {tagline}
           </p>
+          <p class="mt-3 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+            {profile.role} at {profile.company} &mdash; provisioning cloud and virtualized servers,
+            managing enterprise DNS and firewall access, and monitoring production services.
+          </p>
+
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="/projects/" class="btn-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              <Icon name="folder" size={16} />
               View Projects
+              <Icon name="arrow-right" size={15} class="opacity-70" />
             </a>
             <a href="/resume/" class="btn-secondary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-              View Resume
+              <Icon name="file-text" size={16} class="text-muted" />
+              Resume
             </a>
           </div>
-          <!-- Stats -->
-          <div class="mt-10 flex gap-8">
-            {stats.map((s) => (
+
+          <div class="mt-10 grid grid-cols-3 gap-4 border-t border-border pt-6 sm:flex sm:flex-wrap sm:gap-8">
+            {stats.map((stat) => (
               <div>
-                <p class="text-2xl font-bold text-primary mono">{s.value}</p>
-                <p class="text-xs text-muted mt-1">{s.label}</p>
+                <p class="mono text-xl font-semibold text-text">{stat.value}</p>
+                <p class="mt-0.5 text-[11px] uppercase tracking-wider text-subtle">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <!-- Right: Operating Stack -->
-        <div class="lg:col-span-2">
-          <div class="card h-full">
+        <!-- Status panel -->
+        <div class="terminal" data-reveal style="--reveal-delay: 120ms">
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <span class="terminal-dot terminal-dot--red"></span>
+              <span class="terminal-dot terminal-dot--yellow"></span>
+              <span class="terminal-dot terminal-dot--green"></span>
+            </div>
+            <p class="mono text-[11px] text-subtle">{profile.alias}@hq — status</p>
+            <span class="mono ml-auto flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-success">
+              <span class="status-dot"></span>
+              snapshot
+            </span>
+          </div>
+
+          <div class="p-5 sm:p-6">
             <div class="flex items-center justify-between gap-4">
-              <div>
-                <p class="mono text-xs uppercase tracking-wider text-muted">Operating Stack</p>
-                <h2 class="mt-2 text-lg font-semibold">Tools in daily rotation</h2>
-              </div>
-              <span class="flex h-2.5 w-2.5 rounded-full bg-success"></span>
+              <p class="mono text-[11px] text-subtle">$ systemctl status --focus</p>
+              <span class="badge badge-success mono text-[10px]">in use</span>
             </div>
 
-            <div class="mt-6 space-y-4">
+            <div class="mt-5 space-y-2">
               {opsSnapshot.map((item) => (
-                <div class="flex items-start justify-between gap-4 border-b border-border pb-4 last:border-b-0 last:pb-0">
-                  <div>
-                    <p class="text-sm font-medium">{item.label}</p>
-                    <p class="mt-1 text-xs text-muted">{item.value}</p>
+                <div class="group flex items-center gap-3 rounded-lg border border-transparent px-2.5 py-2.5 transition-colors hover:border-border hover:bg-white/[0.02]">
+                  <span class="status-dot"></span>
+                  <div class="min-w-0 flex-1">
+                    <p class="text-[13px] font-medium text-text">{item.label}</p>
+                    <p class="mono mt-0.5 text-[11px] text-subtle">{item.value}</p>
                   </div>
-                  <span class="mono text-xs text-muted">in use</span>
+                  <span class="mono text-[10px] uppercase tracking-wider text-success/80">active</span>
                 </div>
               ))}
             </div>
 
-            <div class="mt-6 rounded-lg border border-border bg-bg/50 p-4">
-              <p class="mono text-xs text-muted">current focus</p>
-              <p class="mt-2 text-sm leading-relaxed text-muted">
-                Monitoring, edge services, and containerized workloads for practical infrastructure work.
+            <div class="mt-5 border-t border-border pt-4">
+              <p class="mono flex items-center gap-2 text-[11px] text-subtle">
+                <span class="text-primary">$</span>
+                cat current-focus.txt
+                <span class="inline-block h-3.5 w-1.5 animate-pulse bg-primary/70"></span>
+              </p>
+              <p class="mt-2.5 text-sm leading-relaxed text-muted">
+                Cloud provisioning, observability, and reliable operations across production and homelab systems.
               </p>
             </div>
           </div>
         </div>
       </div>
-      <!-- Tech Stack -->
-      <div class="mt-12 flex flex-wrap items-center gap-3">
-        <span class="text-xs text-muted uppercase tracking-wider">Tech Stack:</span>
-        {techStack.map((tech) => (
-          <span class="badge mono text-xs">{tech}</span>
-        ))}
-      </div>
-    </div>
-  </section>
 
-  <!-- Current Focus Section -->
-  <section class="px-6 py-16">
-    <div class="mx-auto max-w-5xl">
-      <h2 class="section-title">Current Focus</h2>
-      <p class="mt-2 text-sm text-muted">What I'm working on right now</p>
-      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="card">
-          <div class="flex items-center gap-3">
-            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-            </div>
-            <div>
-              <p class="text-sm font-medium">Infrastructure Monitoring</p>
-              <p class="text-xs text-muted">Kibana, Grafana, Prometheus</p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="flex items-center gap-3">
-            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
-            </div>
-            <div>
-              <p class="text-sm font-medium">Cloud Operations</p>
-              <p class="text-xs text-muted">Huawei Cloud, AWS</p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="flex items-center gap-3">
-            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-            </div>
-            <div>
-              <p class="text-sm font-medium">DevOps Learning</p>
-              <p class="text-xs text-muted">CI/CD, GitOps, Containers</p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="flex items-center gap-3">
-            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
-            </div>
-            <div>
-              <p class="text-sm font-medium">Automation</p>
-              <p class="text-xs text-muted">Scripts, IaC, Workflows</p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="flex items-center gap-3">
-            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect><rect width="20" height="8" x="2" y="14" rx="2" ry="2"></rect><line x1="6" x2="6.01" y1="6" y2="6"></line><line x1="6" x2="6.01" y1="18" y2="18"></line></svg>
-            </div>
-            <div>
-              <p class="text-sm font-medium">Homelab Development</p>
-              <p class="text-xs text-muted">Self-hosting, Docker, Nginx</p>
-            </div>
-          </div>
+      <!-- Tech stack -->
+      <div class="mt-12 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center" data-reveal>
+        <span class="eyebrow shrink-0">Core stack</span>
+        <div class="flex flex-wrap gap-2">
+          {techStack.map((tech) => (
+            <span class="badge mono">{tech}</span>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Journey Section -->
-  <section class="px-6 py-16">
+  <!-- Current focus -->
+  <section class="px-6 py-12 md:py-16">
     <div class="mx-auto max-w-5xl">
-      <h2 class="section-title">Journey</h2>
-      <p class="mt-2 text-sm text-muted">Career path and experience</p>
-
-      <div class="mt-8 space-y-0">
-        <!-- Timeline Item 1 -->
-        <div class="relative flex gap-6 pb-10">
-          <div class="flex flex-col items-center">
-            <div class="flex h-3 w-3 rounded-full bg-primary"></div>
-            <div class="w-px flex-1 bg-border"></div>
-          </div>
-          <div class="-mt-1 pb-2">
-            <p class="mono text-xs text-muted">December 2025 &mdash; Present</p>
-            <p class="mt-1 text-sm font-semibold">IT Operation Center</p>
-            <p class="text-sm text-muted">{profile.company}</p>
-            <div class="mt-2 flex flex-wrap gap-2">
-              <span class="badge">Kibana</span>
-              <span class="badge">Huawei Cloud</span>
-              <span class="badge">VMware</span>
-              <span class="badge">Fortigate</span>
-              <span class="badge">F5</span>
-              <span class="badge">AWS</span>
-            </div>
-          </div>
+      <div class="flex items-end justify-between gap-6" data-reveal>
+        <div>
+          <p class="eyebrow eyebrow-line">01 / Focus</p>
+          <h2 class="section-title mt-3">Current Focus</h2>
+          <p class="section-lede">The areas I'm actively working on and sharpening right now.</p>
         </div>
-
-        <!-- Timeline Item 2 -->
-        <div class="relative flex gap-6 pb-10">
-          <div class="flex flex-col items-center">
-            <div class="flex h-3 w-3 rounded-full bg-border"></div>
-            <div class="w-px flex-1 bg-border"></div>
-          </div>
-          <div class="-mt-1 pb-2">
-            <p class="mono text-xs text-muted">November 2023 &mdash; December 2025</p>
-            <p class="mt-1 text-sm font-semibold">Technical Support</p>
-            <p class="text-sm text-muted">Qwords Cloud Webhosting</p>
-            <div class="mt-2 flex flex-wrap gap-2">
-              <span class="badge">Hosting</span>
-              <span class="badge">Linux</span>
-              <span class="badge">DNS</span>
-              <span class="badge">Email</span>
-              <span class="badge">Security</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Timeline Item 3 -->
-        <div class="relative flex gap-6">
-          <div class="flex flex-col items-center">
-            <div class="flex h-3 w-3 rounded-full bg-border"></div>
-          </div>
-          <div class="-mt-1 pb-2">
-            <p class="mono text-xs text-muted">September 2021 &mdash; August 2023</p>
-            <p class="mt-1 text-sm font-semibold">Computer Laboratory Staff</p>
-            <p class="text-sm text-muted">STMIK IKMI Cirebon</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-10">
-        <a href="/resume/" class="text-sm text-primary hover:underline">
-          View full resume &rarr;
+        <a href="/now/" class="link-arrow hidden shrink-0 sm:inline-flex">
+          See /now
+          <Icon name="arrow-right" size={14} />
         </a>
+      </div>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {focusAreas.map((area, index) => (
+          <div class="card group" data-reveal style={`--reveal-delay: ${index * 60}ms`}>
+            <div class="flex items-start gap-4">
+              <span class="icon-tile">
+                <Icon name={area.icon} size={18} />
+              </span>
+              <div>
+                <h3 class="text-sm font-medium text-text">{area.title}</h3>
+                <p class="mt-1.5 text-xs leading-relaxed text-muted">{area.meta}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <a href="/now/" class="card card-link group border-dashed" data-reveal style="--reveal-delay: 300ms">
+          <div class="flex items-start gap-4">
+            <span class="icon-tile">
+              <Icon name="arrow-up-right" size={18} />
+            </span>
+            <div>
+              <h3 class="text-sm font-medium text-text">What's running now</h3>
+              <p class="mt-1.5 text-xs leading-relaxed text-muted">
+                Current work, learning, and projects in one snapshot.
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey -->
+  <section class="px-6 py-12 md:py-16">
+    <div class="mx-auto max-w-5xl">
+      <div data-reveal>
+        <p class="eyebrow eyebrow-line">02 / Journey</p>
+        <h2 class="section-title mt-3">Journey</h2>
+        <p class="section-lede">From lab support to cloud and infrastructure operations.</p>
+      </div>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+        <div class="card h-fit lg:sticky lg:top-24" data-reveal>
+          <p class="mono text-[11px] uppercase tracking-[0.16em] text-subtle">The path</p>
+          <p class="mt-4 text-lg font-medium leading-snug text-text">
+            Started in technical support. Grew into cloud operations.
+          </p>
+          <p class="mt-3 text-sm leading-relaxed text-muted">
+            Every role added another layer: from maintaining computer labs and hosting customers,
+            to monitoring production infrastructure and operating cloud environments.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="badge">Support</span>
+            <span class="badge">Linux</span>
+            <span class="badge">Cloud</span>
+            <span class="badge">Operations</span>
+          </div>
+          <a href="/resume/" class="link-arrow mt-6">
+            View full resume
+            <Icon name="arrow-right" size={14} />
+          </a>
+        </div>
+
+        <div>
+          {journey.map((item, index) => (
+            <div class="relative flex gap-5 pb-8 last:pb-0" data-reveal style={`--reveal-delay: ${index * 80}ms`}>
+              <div class="flex flex-col items-center">
+                {item.current ? (
+                  <span class="mt-1 flex h-3.5 w-3.5 items-center justify-center rounded-full border border-primary/40 bg-primary/15">
+                    <span class="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(91,156,246,0.8)]"></span>
+                  </span>
+                ) : (
+                  <span class="mt-1 flex h-3.5 w-3.5 items-center justify-center rounded-full border border-border bg-elevated">
+                    <span class="h-1.5 w-1.5 rounded-full bg-subtle"></span>
+                  </span>
+                )}
+                <span class="mt-2 w-px flex-1 bg-gradient-to-b from-border to-transparent"></span>
+              </div>
+
+              <div class="min-w-0 pb-2">
+                <div class="flex flex-wrap items-center gap-2">
+                  <p class="mono text-[11px] uppercase tracking-wider text-subtle">{item.period}</p>
+                  {item.current && <span class="badge badge-success mono text-[10px]">current</span>}
+                </div>
+                <h3 class="mt-1.5 text-base font-semibold text-text">{item.role}</h3>
+                <p class="text-sm text-muted">{item.company}</p>
+                <p class="mt-2 text-sm leading-relaxed text-muted">{item.summary}</p>
+                {item.tags.length > 0 && (
+                  <div class="mt-3 flex flex-wrap gap-2">
+                    {item.tags.map((tag) => (
+                      <span class="badge mono">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="px-6 pb-20 pt-4 md:pb-24">
+    <div class="mx-auto max-w-5xl">
+      <div class="relative overflow-hidden rounded-2xl border border-border bg-card p-8 md:p-10" data-reveal>
+        <div class="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/10 blur-3xl"></div>
+        <div class="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p class="eyebrow eyebrow-line">Contact</p>
+            <h2 class="mt-3 text-2xl font-semibold tracking-tight text-text">Let's talk infrastructure.</h2>
+            <p class="mt-2 max-w-md text-sm leading-relaxed text-muted">
+              For questions, collaboration, or just talking shop about systems, cloud, and automation.
+            </p>
+          </div>
+          <a href={`mailto:${profile.email}`} class="btn-primary shrink-0">
+            Say hello
+            <Icon name="arrow-up-right" size={15} />
+          </a>
+        </div>
       </div>
     </div>
   </section>

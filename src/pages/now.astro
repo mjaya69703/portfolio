@@ -1,114 +1,232 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import { profile } from '../data/profile';
+
+const learning = [
+  {
+    icon: 'box',
+    title: 'Kubernetes',
+    description: 'Building on the KodeKloud certification with cluster operations, manifests, and troubleshooting',
+  },
+  {
+    icon: 'pen-tool',
+    title: 'Infrastructure Automation',
+    description: 'Practicing Ansible, Bash, and GitHub Actions for repeatable provisioning and operations',
+  },
+  {
+    icon: 'cpu',
+    title: 'AI Agents',
+    description: 'Experimenting with self-hosted AI agents and operational workflows',
+  },
+];
+
+const projects = [
+  {
+    name: 'NexaCampus',
+    href: '/projects/',
+    status: 'success',
+    meta: 'Active project',
+  },
+  {
+    name: 'Homelab Improvements',
+    href: '/homelab/',
+    status: 'warning',
+    meta: 'Ongoing',
+  },
+  {
+    name: profile.siteName,
+    href: null,
+    status: 'success',
+    meta: 'This site',
+  },
+];
 ---
 
-<BaseLayout title="Now - AscendKyo.dev" description="Current snapshot of what AscendKyo is working on, learning, and interested in">
-  <section class="px-6 py-24">
+<BaseLayout
+  title={`Now - ${profile.siteName}`}
+  description={`Current snapshot of what ${profile.name} (${profile.alias}) is working on, learning, and interested in`}
+>
+  <section class="px-6 pb-16 pt-14 md:pb-24 md:pt-20">
     <div class="mx-auto max-w-5xl">
-      <div class="flex items-start justify-between gap-4">
+      <div class="flex flex-col gap-5 border-b border-border pb-8 md:flex-row md:items-end md:justify-between" data-reveal>
         <div>
-          <h1 class="text-3xl font-bold tracking-tight">Now</h1>
-          <p class="mt-2 text-muted">What I'm focused on right now</p>
-        </div>
-        <p class="mono text-xs text-muted shrink-0 mt-2">Last updated: June 2026</p>
-      </div>
-
-      <p class="mt-6 text-sm text-muted max-w-3xl leading-relaxed">
-        This is a <a href="https://nownownow.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">/now page</a>. It tells you what I'm up to at this point in my life.
-      </p>
-
-      <!-- Current Work -->
-      <div class="mt-10">
-        <h2 class="section-title flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-          Current Work
-        </h2>
-        <div class="mt-4 card">
-          <p class="text-sm text-muted leading-relaxed">
-            Currently working as <strong class="text-text">{profile.role}</strong> at <strong class="text-text">{profile.company}</strong>. Responsible for monitoring infrastructure, managing cloud resources, and ensuring system reliability.
+          <p class="eyebrow eyebrow-line">05 / Now</p>
+          <h1 class="mt-3 text-4xl font-semibold tracking-[-0.04em] text-text md:text-5xl">Now</h1>
+          <p class="mt-3 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+            A snapshot of what I'm working on, learning, and paying attention to right now.
           </p>
         </div>
+
+        <span class="badge mono shrink-0">
+          <Icon name="clock" size={12} />
+          Updated November 2026
+        </span>
       </div>
 
-      <!-- Current Learning -->
-      <div class="mt-10">
-        <h2 class="section-title flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-          Current Learning
-        </h2>
-        <div class="mt-4 space-y-3">
-          <div class="card flex items-center gap-3">
-            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+      <p class="mt-5 flex items-start gap-2 text-xs leading-relaxed text-subtle" data-reveal>
+        <Icon name="book-open" size={14} class="mt-0.5 shrink-0" />
+        <span>
+          This is a{' '}
+          <a
+            href="https://nownownow.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-muted underline decoration-border underline-offset-2 transition-colors hover:text-primary-bright"
+          >/now page</a
+          >. It tells you what I'm up to at this point in my life.
+        </span>
+      </p>
+
+      <div class="mt-10 grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+        <div class="space-y-10">
+          <!-- Current work -->
+          <section data-reveal>
+            <div class="flex items-center gap-3">
+              <span class="icon-tile">
+                <Icon name="briefcase" size={18} />
+              </span>
+              <div>
+                <h2 class="section-title">Current Work</h2>
+                <p class="text-xs text-muted">Where the days go</p>
+              </div>
             </div>
-            <div>
-              <p class="text-sm font-medium">Kubernetes</p>
-              <p class="text-xs text-muted">Container orchestration and cluster management</p>
+
+            <div class="card relative mt-5 overflow-hidden">
+              <div class="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-primary/10 blur-3xl"></div>
+
+              <div class="relative flex flex-wrap items-center gap-3">
+                <div class="min-w-0 flex-1">
+                  <p class="mono text-[10px] uppercase tracking-[0.16em] text-subtle">Current role</p>
+                  <h3 class="mt-1 text-lg font-semibold text-text">{profile.role}</h3>
+                  <p class="text-sm text-muted">{profile.company}</p>
+                </div>
+                <span class="badge badge-success mono">
+                  <span class="status-dot status-dot--pulse"></span>
+                  active
+                </span>
+              </div>
+
+              <p class="relative mt-4 text-sm leading-relaxed text-muted">
+                Currently working as <strong class="font-medium text-text">{profile.role}</strong> at{' '}
+                <strong class="font-medium text-text">{profile.company}</strong>. Provisioning cloud
+                and virtualized servers, managing enterprise DNS in F5 BIG-IP ZoneRunner and AWS Route 53,
+                administering FortiGate access, and monitoring production services through ELK and
+                Grafana.
+              </p>
+
+              <div class="relative mt-4 flex flex-wrap gap-2 border-t border-border pt-4">
+                <span class="badge mono">ELK Stack</span>
+                <span class="badge mono">Huawei Cloud</span>
+                <span class="badge mono">GCP</span>
+                <span class="badge mono">VMware</span>
+                <span class="badge mono">FortiGate</span>
+                <span class="badge mono">F5 ZoneRunner</span>
+                <span class="badge mono">AWS Route 53</span>
+              </div>
             </div>
-          </div>
-          <div class="card flex items-center gap-3">
-            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          </section>
+
+          <!-- Current learning -->
+          <section data-reveal>
+            <div class="flex items-center gap-3">
+              <span class="icon-tile">
+                <Icon name="book-open" size={18} />
+              </span>
+              <div>
+                <h2 class="section-title">Current Learning</h2>
+                <p class="text-xs text-muted">What is being studied now</p>
+              </div>
             </div>
-            <div>
-              <p class="text-sm font-medium">Infrastructure Automation</p>
-              <p class="text-xs text-muted">Terraform, Ansible, and IaC practices</p>
+
+            <div class="mt-5 space-y-3">
+              {learning.map((item, index) => (
+                <div class="card group flex items-start gap-4" data-reveal style={`--reveal-delay: ${index * 60}ms`}>
+                  <span class="icon-tile">
+                    <Icon name={item.icon} size={17} />
+                  </span>
+                  <div>
+                    <h3 class="text-sm font-medium text-text">{item.title}</h3>
+                    <p class="mt-1 text-xs leading-relaxed text-muted">{item.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-          <div class="card flex items-center gap-3">
-            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
-            </div>
-            <div>
-              <p class="text-sm font-medium">AI Agents</p>
-              <p class="text-xs text-muted">Building and experimenting with AI-powered workflows</p>
-            </div>
-          </div>
+          </section>
         </div>
-      </div>
 
-      <!-- Current Projects -->
-      <div class="mt-10">
-        <h2 class="section-title flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-          Current Projects
-        </h2>
-        <div class="mt-4 space-y-3">
-          <a href="/projects/" class="card block flex items-center justify-between">
+        <div class="space-y-10">
+          <!-- Current projects -->
+          <section data-reveal>
             <div class="flex items-center gap-3">
-              <div class="h-2.5 w-2.5 rounded-full bg-success"></div>
-              <span class="text-sm font-medium">NexaCampus</span>
+              <span class="icon-tile">
+                <Icon name="folder" size={18} />
+              </span>
+              <div>
+                <h2 class="section-title">Current Projects</h2>
+                <p class="text-xs text-muted">Open loops</p>
+              </div>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted"><path d="m9 18 6-6-6-6"></path></svg>
-          </a>
-          <a href="/homelab/" class="card block flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="h-2.5 w-2.5 rounded-full bg-warning"></div>
-              <span class="text-sm font-medium">Homelab Improvements</span>
-            </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted"><path d="m9 18 6-6-6-6"></path></svg>
-          </a>
-          <div class="card flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="h-2.5 w-2.5 rounded-full bg-success"></div>
-              <span class="text-sm font-medium">AscendKyo.dev</span>
-            </div>
-            <span class="badge text-xs">This site</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- Current Interests -->
-      <div class="mt-10">
-        <h2 class="section-title flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.74 0-3 .41-4.5 1.5C10.5 3.41 9.24 3 7.5 3A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
-          Current Interests
-        </h2>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <span class="badge badge-primary">Cloud Infrastructure</span>
-          <span class="badge badge-primary">Monitoring Systems</span>
-          <span class="badge badge-primary">Automation</span>
+            <div class="mt-5 space-y-3">
+              {projects.map((project) =>
+                project.href ? (
+                  <a href={project.href} class="card card-link group flex items-center justify-between gap-3 p-4">
+                    <div class="flex items-center gap-3">
+                      <span
+                        class:list={[
+                          'status-dot',
+                          project.status === 'warning' ? 'status-dot--warning' : '',
+                        ]}
+                      ></span>
+                      <div>
+                        <p class="text-sm font-medium text-text">{project.name}</p>
+                        <p class="mono mt-0.5 text-[10px] text-subtle">{project.meta}</p>
+                      </div>
+                    </div>
+                    <Icon name="arrow-up-right" size={14} class="shrink-0 text-subtle transition-colors group-hover:text-primary-bright" />
+                  </a>
+                ) : (
+                  <div class="card flex items-center justify-between gap-3 p-4">
+                    <div class="flex items-center gap-3">
+                      <span class="status-dot"></span>
+                      <div>
+                        <p class="text-sm font-medium text-text">{project.name}</p>
+                        <p class="mono mt-0.5 text-[10px] text-subtle">{project.meta}</p>
+                      </div>
+                    </div>
+                    <span class="badge mono">live</span>
+                  </div>
+                )
+              )}
+            </div>
+          </section>
+
+          <!-- Current interests -->
+          <section data-reveal>
+            <div class="flex items-center gap-3">
+              <span class="icon-tile">
+                <Icon name="heart" size={18} />
+              </span>
+              <div>
+                <h2 class="section-title">Current Interests</h2>
+                <p class="text-xs text-muted">Topics that keep pulling me in</p>
+              </div>
+            </div>
+
+            <div class="card mt-5">
+              <div class="flex flex-wrap gap-2">
+                <span class="badge badge-primary">Cloud Infrastructure</span>
+                <span class="badge badge-primary">Site Reliability</span>
+                <span class="badge badge-primary">Observability</span>
+                <span class="badge badge-primary">Automation</span>
+              </div>
+              <p class="mt-4 border-t border-border pt-4 text-xs leading-relaxed text-muted">
+                Mostly interested in the unglamorous parts: reliability, observability, and making
+                repetitive work disappear.
+              </p>
+            </div>
+          </section>
         </div>
       </div>
     </div>

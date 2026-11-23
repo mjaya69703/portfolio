@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { profile } from '../../data/profile';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort(
@@ -17,24 +19,68 @@ const categories = Object.entries(categoryCounts)
 
 const categoryLimit = 12;
 const hasManyCategories = categories.length + 1 > categoryLimit;
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+const getReadingTime = (body?: string) => {
+  const words = body?.trim().split(/\s+/).length ?? 0;
+  return Math.max(1, Math.round(words / 200));
+};
 ---
 
-<BaseLayout title="Blog - AscendKyo.dev" description="Knowledge repository - articles about DevOps, Infrastructure, Linux, Docker, and more">
-  <section class="px-6 py-24">
+<BaseLayout
+  title={`Blog - ${profile.siteName}`}
+  description="Notes on infrastructure, reliability, Linux, Docker, and operations."
+>
+  <section class="px-6 pb-16 pt-14 md:pb-24 md:pt-20">
     <div class="mx-auto max-w-5xl">
-      <h1 class="text-3xl font-bold tracking-tight">Blog</h1>
-      <p class="mt-2 text-muted">What has been learned and how problems were solved</p>
+      <div class="flex flex-col gap-8 border-b border-border pb-8 md:flex-row md:items-end md:justify-between" data-reveal>
+        <div>
+          <p class="eyebrow eyebrow-line">03 / Writing</p>
+          <h1 class="mt-3 text-4xl font-semibold tracking-[-0.04em] text-text md:text-5xl">Blog</h1>
+          <p class="mt-3 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+            What has been learned and how problems were solved — notes from the operations side.
+          </p>
+        </div>
+
+        <div class="flex gap-8">
+          <div>
+            <p class="mono text-2xl font-semibold text-text">{String(posts.length).padStart(2, '0')}</p>
+            <p class="mt-0.5 text-[10px] uppercase tracking-[0.16em] text-subtle">Posts</p>
+          </div>
+          <div>
+            <p class="mono text-2xl font-semibold text-primary">{String(categories.length).padStart(2, '0')}</p>
+            <p class="mt-0.5 text-[10px] uppercase tracking-[0.16em] text-subtle">Categories</p>
+          </div>
+        </div>
+      </div>
 
       <!-- Categories -->
-      <div class="mt-8" aria-label="Filter blog posts by category">
-        <div class="flex flex-wrap gap-2" id="category-filters">
-          <button type="button" class="badge badge-primary category-filter" data-category="all" data-index="0" aria-pressed="true">
+      <div class="mt-8" aria-label="Filter blog posts by category" data-reveal>
+        <div class="flex flex-wrap items-center gap-2" id="category-filters">
+          <button
+            type="button"
+            class="badge category-filter"
+            data-category="all"
+            data-index="0"
+            aria-pressed="true"
+            aria-label={`All posts (${posts.length})`}
+          >
             All
+            <span class="category-count">{posts.length}</span>
           </button>
           {categories.map(({ category, count }, index) => (
-            <button type="button" class="badge category-filter" data-category={category} data-index={index + 1} aria-pressed="false">
+            <button
+              type="button"
+              class="badge category-filter"
+              data-category={category}
+              data-index={index + 1}
+              aria-pressed="false"
+              aria-label={`${category} (${count})`}
+            >
               {category}
-              {hasManyCategories && <span class="category-count">{count}</span>}
+              <span class="category-count">{count}</span>
             </button>
           ))}
           {hasManyCategories && (
@@ -46,29 +92,60 @@ const hasManyCategories = categories.length + 1 > categoryLimit;
       </div>
 
       <!-- Posts -->
-      <div class="mt-10 space-y-6" id="blog-posts">
-        {posts.map((post) => {
-          const readingTime = Math.max(1, Math.round(post.body?.split(/\s+/).length / 200));
-          return (
-            <a href={`/blog/${post.id}/`} class="card block blog-post" data-category={post.data.category}>
-              <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                <div>
-                  <h2 class="text-base font-semibold">{post.data.title}</h2>
-                  <p class="mt-1.5 text-sm text-muted leading-relaxed">{post.data.description}</p>
-                  <div class="mt-3 flex flex-wrap items-center gap-3">
-                    <span class="mono text-xs text-muted">
-                      {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                    </span>
-                    <span class="text-xs text-border">&middot;</span>
-                    <span class="mono text-xs text-muted">{readingTime} min read</span>
-                    <span class="badge text-xs">{post.data.category}</span>
-                  </div>
+      <div class="mt-8 space-y-4" id="blog-posts">
+        {posts.map((post, index) => (
+          <a
+            href={`/blog/${post.id}/`}
+            class:list={[
+              'card card-link blog-post group',
+              index === 0 ? 'p-6 md:p-7' : 'p-5',
+            ]}
+            data-category={post.data.category}
+            data-reveal
+            style={`--reveal-delay: ${Math.min(index, 5) * 60}ms`}
+          >
+            <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  {index === 0 && <span class="badge badge-primary mono">Latest</span>}
+                  <span class="badge mono">{post.data.category}</span>
+                  <span class="mono text-[11px] text-subtle">{formatDate(post.data.date)}</span>
+                  <span class="h-1 w-1 rounded-full bg-border"></span>
+                  <span class="mono text-[11px] text-subtle">{getReadingTime(post.body)} min read</span>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1 shrink-0 text-muted"><path d="m9 18 6-6-6-6"></path></svg>
+
+                <h2
+                  class:list={[
+                    'mt-3 font-semibold tracking-tight text-text transition-colors group-hover:text-primary-bright',
+                    index === 0 ? 'text-xl sm:text-2xl' : 'text-base',
+                  ]}
+                >
+                  {post.data.title}
+                </h2>
+                <p
+                  class:list={[
+                    'mt-2 leading-relaxed text-muted',
+                    index === 0 ? 'max-w-3xl text-sm sm:text-base' : 'text-sm',
+                  ]}
+                >
+                  {post.data.description}
+                </p>
               </div>
-            </a>
-          );
-        })}
+
+              <span class="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-muted transition-all group-hover:border-primary/40 group-hover:text-primary-bright md:mt-1 md:flex">
+                <Icon name="arrow-up-right" size={15} />
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div id="empty-state" class="card mt-4 hidden py-12 text-center">
+        <span class="icon-tile mx-auto">
+          <Icon name="file-text" size={18} />
+        </span>
+        <p class="mt-4 text-sm font-medium text-text">No posts in this category yet.</p>
+        <p class="mt-1 text-xs text-muted">Try another category or view all posts.</p>
       </div>
     </div>
   </section>
@@ -79,6 +156,7 @@ const hasManyCategories = categories.length + 1 > categoryLimit;
   const filters = Array.from(document.querySelectorAll<HTMLButtonElement>('.category-filter'));
   const posts = Array.from(document.querySelectorAll<HTMLElement>('.blog-post'));
   const moreButton = document.querySelector<HTMLButtonElement>('#category-more');
+  const emptyState = document.querySelector<HTMLElement>('#empty-state');
   let showAllCategories = false;
 
   const setActiveCategory = (category: string, updateUrl = true) => {
@@ -86,14 +164,17 @@ const hasManyCategories = categories.length + 1 > categoryLimit;
 
     filters.forEach((filter) => {
       const isActive = filter.dataset.category?.toLowerCase() === selected;
-      filter.classList.toggle('badge-primary', isActive);
       filter.setAttribute('aria-pressed', String(isActive));
     });
 
+    let visiblePosts = 0;
     posts.forEach((post) => {
       const isMatch = selected === 'all' || post.dataset.category?.toLowerCase() === selected;
       post.classList.toggle('hidden', !isMatch);
+      if (isMatch) visiblePosts += 1;
     });
+
+    emptyState?.classList.toggle('hidden', visiblePosts > 0);
 
     if (!updateUrl) return;
 
@@ -127,15 +208,15 @@ const hasManyCategories = categories.length + 1 > categoryLimit;
     });
   });
 
-  search?.addEventListener('input', updateVisibleCategories);
-
   moreButton?.addEventListener('click', () => {
     showAllCategories = !showAllCategories;
     updateVisibleCategories();
   });
 
   const initialCategory = new URLSearchParams(window.location.search).get('category') ?? 'all';
-  const hasInitialCategory = filters.some((filter) => filter.dataset.category?.toLowerCase() === initialCategory.toLowerCase());
+  const hasInitialCategory = filters.some(
+    (filter) => filter.dataset.category?.toLowerCase() === initialCategory.toLowerCase()
+  );
   showAllCategories = initialCategory !== 'all';
   updateVisibleCategories();
   setActiveCategory(hasInitialCategory ? initialCategory : 'all', false);

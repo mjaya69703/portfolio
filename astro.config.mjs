@@ -9,7 +9,7 @@ import robots from 'astro-robots';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ascendkyo.dev',
+  site: process.env.SITE_URL || 'https://idev-fun.org',
   vite: {
     plugins: [tailwindcss()],
     logLevel: 'warn',
